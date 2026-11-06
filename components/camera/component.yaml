@@ -1,0 +1,38 @@
+# Passport of the Camera component (ARCHITECTURE.md). The code is in this folder; the "camera" step has two
+# entries: a command (a camera by intent, the old path) and plan/build (by target and orbit, built step by
+# step).
+component: camera
+version: 2                             # 2 — the step does not recompute pinned records
+owner: component maintainers
+bench: bench/check.py                  # api (move, look_at, frame_*, follow_look) and the plan with and without relief — Python, ~1 s; in Blender — the root bench/tools/smoke.sh
+steps:
+  camera:                                # one name for both entries: the former "intent" is the same step, entered as "command" (the manager has no synonyms)
+    section: cameras
+    kind: adds
+    reads: []                           # place — optional: the command entry (frame_by_intent) and scenes without relief; a plan without relief.npz puts the ground at 0 ("skipped");
+                                        # the command's hero comes from the scene's figkit.json, not from a model section
+    may_read: [actors, site, buildings]
+    writes: [cameras]
+    scene_files: [cameras.json]          # cameras by target, orbit, camera by intent — records in the run scene's cameras.json
+    # entry 1 — the command (a pipeline without "build: steps"): a hero camera by intent (wide | medium | closeup
+    # | heroic | …)
+    command: [blender, -b, --factory-startup, -P, "{root}/core/blender/run.py", --, "{root}/components/camera/cam_intent.py", --, "{scene}", "{hero}", "{intent}"]
+    flags: {fmt: fmt=, pair: pair=, az: az=, el: el=, lens: lens=, x: x=, hf: hf=, name: name=}   # command path only
+    # entry 2 — by steps: plan (project Python) and build (Blender), the target is a building, a place anchor, x,y
+    plan: steps.py:plan_camera           # project Python: target (building, place anchor, x,y), azimuth, height, distance, orbit N, the move (move_NNN);
+                                         # pinned cam_<view>, orbit_NN stay as they are; the step's own pinned ones outside the step are dropped,
+                                         # "skipped"
+    build: steps.py:build_camera        # Blender: camera objects into the "cameras" collection (pinned ones — from the record); built step by step
+    keys: {intent: medium, view: wide, azimuth: 200, elevation: 12, distance: 160, lens: 35, orbit: 0, res: 960x540,
+            target: null, above: null, anchor: null, arc: 360, rise: 0, close: 0, move: null}   # "intent" — the command path only
+    command_keys: [intent, hero, fmt, pair, az, el, x, hf, name]   # the command entry (cam_intent.py); they have no effect in the step-by-step build
+    values: {intent: [wide, medium, closeup, heroic, overhead, two_shot, over_shoulder, from_cover, pov], azimuth: float, elevation: float, distance: float, lens: float, orbit: int, arc: float, rise: float, close: float, res: WxH, target: point, above: float, view: str, anchor: str, move: dict}
+    description: {view: "camera name (cam_<view>)", azimuth: "degrees around the target", elevation: "elevation angle, degrees", distance: "metres from the target",
+               lens: "focal length, mm", orbit: "N orbit frames (cameras orbit_NN); 0 — no orbit", arc: "orbit arc, ° (360 — a full circle)", rise: "rise over the orbit, ° of elevation",
+               close: "push-in over the orbit — a fraction of the distance (0.3 — a third closer)", res: "resolution \"640x360\"",
+               target: "\"x,y\" in scene metres; without a target — the building centre", above: "height of the target point above the ground, m", anchor: "name of a place anchor (…top)",
+               move: "place-aware move (components/camera/move): {recipe: arc|push|pull|truck|crane|pan|zoom|static, subject: {anchor|point, h}, size, pitch, bg_a, bg_b, sweep, rig, format, sec, fps} → move_NNN records (frame, fps); a list of moves — move_<j>_NNN; without subject — the step's target; the old orbit is a circle (the old path)"}
+    hint: "place the camera BEFORE light: changing the light does not touch the cameras; pinned records (stage pin) are not recomputed by the step — to edit at any stage: change the scene's cameras.json record by hand or run stage unpin (everything, by names, a shot) and re-run; checking a move is cheaper on sketch"
+    code: [core/outputs/maps.py, components/camera/ext/armature/*.py]
+    cost: light
+    on_fail: stop

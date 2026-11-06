@@ -1,0 +1,31 @@
+# Real man-made shapes for measurement (lidar.py): lidar relief maps without buildings and forest (DTM).
+# src: ea — England, Environment Agency LIDAR Composite DTM 2022, 1 m (Open Government Licence v3);
+#      ahn — Netherlands, AHN4 dtm_05m, 0.5 m (CC0); 3dep — USA, USGS 3DEP, 1 m (public domain).
+# half — half-window, m; res — step, m (native by default). kind — what is measured (lidar.py measure).
+sites:
+  # --- hillforts: ring forts on a contour, promontory forts, on a spur
+  maiden_castle:   {ru: "Maiden Castle (Dorset), a multi-rampart contour fort", src: ea, lat: 50.6945, lon: -2.4693, half: 650, kind: fort}
+  hambledon_hill:  {ru: "Hambledon Hill (Dorset), on a spur", src: ea, lat: 50.9122, lon: -2.2208, half: 700, kind: fort}
+  british_camp:    {ru: "British Camp (Malvern), along the ridge", src: ea, lat: 52.0594, lon: -2.3503, half: 500, kind: fort}
+  danebury:        {ru: "Danebury (Hampshire), ring fort", src: ea, lat: 51.1371, lon: -1.5376, half: 350, kind: fort}
+  kemerton_camp:   {ru: "Kemerton (Bredon Hill), promontory fort on a cliff", src: ea, lat: 52.0609, lon: -2.0654, half: 400, kind: fort}
+  hengistbury:     {ru: "Hengistbury Head, a double rampart across the promontory", src: ea, lat: 50.7215, lon: -1.7637, half: 600, kind: fort}
+  fort_ancient:    {ru: "Fort Ancient (Ohio), ramparts along the edge of a promontory above the river", src: 3dep, lat: 39.4045, lon: -84.0880, half: 700, kind: fort}
+  newark_circle:   {ru: "Newark, Great Circle: a ring rampart, the moat inside", src: 3dep, lat: 40.0420, lon: -82.4315, half: 300, kind: fort}
+  # --- a town on a hillfort and town ramparts
+  old_sarum:       {ru: "Old Sarum: an Iron Age ring, a castle and a town inside", src: ea, lat: 51.0930, lon: -1.8047, half: 450, kind: town}
+  wareham:         {ru: "Wareham: the earth walls of a Saxon burh around the town", src: ea, lat: 50.6862, lon: -2.1110, half: 600, kind: town}
+  pleshey:         {ru: "Pleshey: motte, bailey and a rampart around the village", src: ea, lat: 51.8028, lon: 0.4122, half: 600, kind: town}
+  bourtange:       {ru: "Bourtange: a star fort, ramparts and moats", src: ahn, lat: 53.0068, lon: 7.1915, half: 500, kind: town}
+  naarden:         {ru: "Naarden: a fortress town, bastions and a double moat", src: ahn, lat: 52.2952, lon: 5.1620, half: 700, kind: town}
+  # --- settlement mounds (the tells of Europe — terps, wierden) and a platform mound
+  hegebeintum:     {ru: "Hegebeintum: the highest terp", src: ahn, lat: 53.3370, lon: 5.8500, half: 300, kind: mound}
+  monks_mound:     {ru: "Monks Mound (Cahokia): a platform mound", src: 3dep, lat: 38.6603, lon: -90.0619, half: 450, kind: mound}
+  # --- fields, roads, an abandoned village
+  worth_lynchets:  {ru: "Worth Matravers: strip lynchets (field terraces)", src: ea, lat: 50.5895, lon: -2.0375, half: 400, kind: field}
+  symondsbury:     {ru: "Symondsbury: sunken roads (holloways)", src: ea, lat: 50.7400, lon: -2.7820, half: 400, kind: lane}
+  padbury:         {ru: "Padbury: ridge-and-furrow fields (ridge and furrow)", src: ea, lat: 51.9706, lon: -0.9466, half: 400, kind: field}
+  wharram_percy:   {ru: "Wharram Percy: an abandoned village — yard platforms, sunken streets", src: ea, lat: 54.0669, lon: -0.6896, half: 450, kind: field}
+  # --- industrial (for the hive): a quarry in benches, a spoil heap
+  bingham_canyon:  {ru: "Bingham Canyon: an open-pit quarry in benches", src: 3dep, lat: 40.5230, lon: -112.1510, half: 2500, res: 5, kind: pit}
+  glen_burn:       {ru: "Glen Burn (Pennsylvania): a coal spoil heap", src: 3dep, lat: 40.7905, lon: -76.5605, half: 800, res: 2, kind: heap}

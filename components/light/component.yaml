@@ -1,0 +1,31 @@
+# Passport of the "Light and sky" component (ARCHITECTURE.md). The code is in this folder. Step by step, it writes the light directly into the scene's .blend
+# (build: steps.py:build_light — world, lamps, far terrain, clouds, city, AgX; plan: steps.py:plan_light). The old path — the node is assembled in the render:
+# the step gives the outputs the --light key.
+component: light
+version: 1
+owner: component maintainers
+bench: bench/bench.py
+steps:
+  light:
+    section: light
+    kind: adds
+    reads: []                           # site (biome), light — if present in the model; the default node comes from world.json
+    writes: [light]
+    gives: [light_plan, exposure]       # the light node plan (far_plan.json) — for explosions and frames; exposure; lamps and far terrain — log statistics
+    plan: steps.py:plan_light            # project Python: the far: description + time, weather → the node plan far_plan.json (far.py)
+    build: steps.py:build_light         # Blender: world, lamps, far terrain, clouds, city, AgX into the scene (bl_far.py); step-by-step build
+    may_read: [site]                # sky weather — the weather key or "sky_weather" from the "gives" of the "weather" step (Materials; it runs before light)
+    output_keys: {time: --light}       # old frame path: frames.py --light (node time far.TIME; presets of old descriptions — far.NODE_OF)
+    keys: {time: null, weather: null, style: null, sky_image: null, shadows: on}
+    values:
+      time: "catalog:core/light/far.py#TIME"
+      weather: "catalog:core/light/far.py#WEATHER"
+      style: "catalog:core/light/far.py#STYLE"
+      shadows: [on, off, "on", "off"]   # without quotes YAML reads on/off as true/false — both forms are accepted
+    description: {time: "time of day of the light-and-sky node (dawn … night); with no knob — the scene's light or the site biome; an overcast day — time: day, weather: overcast; a fire — time: night, weather: war_smoke", weather: "sky weather far.WEATHER; by default — sky_weather of the weather step",
+               style: "style of light and sky (saturation, exposure, night)",
+               sky_image: "sky as a picture — equirectangular 2:1 (path[:rotation°] or {path, yaw, ev, sun: image|node|[az, el], drift}): the camera sees the picture, the light comes from the node, the sun/moon follows the picture; otherwise — the sky model",
+               shadows: "shadow of the sun/moon: on — default; off — a lamp without shadow (plan: sun.shadow = false) — a forest-scene draft is cheaper by 24–30 % of the take-frame cost"}
+    hint: "light goes last before the output: changing the time of day rebuilds only the light and the frames"
+    cost: medium
+    on_fail: stop

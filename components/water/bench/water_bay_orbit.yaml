@@ -1,0 +1,14 @@
+# Check of Water in the pipeline on a fly-around: 4 cameras — each has its own water, time runs by the
+# fly-around frames.
+# .venv/bin/python -m core.manager.pipeline components/water/bench/water_bay.yaml [--dry] [--until water]
+pipeline: water_bay_orbit
+scene: bench/scenes/water_bay
+profile: preview
+build: stepwise
+steps:
+  - relief: {preset: harbour_bay, seed: 2}
+  - camera: {view: bay, anchor: bay.mouth, azimuth: 200, elevation: 6, distance: 260, lens: 30, res: 960x540, orbit: 4, arc: 40}
+  - water: {}
+  - light: {}
+outputs:
+  - frames: {samples: 12, maps: false, video: true, fps: 4}

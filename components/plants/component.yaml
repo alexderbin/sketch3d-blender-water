@@ -1,0 +1,111 @@
+# Passport of the "Plants and details" component (ARCHITECTURE.md). The code is in this folder. The steps are wrappers around the current commands: they append a part to the
+# run scene's scene.obj (the kind goes to world.json). The "plants" step has a step-by-step entry (plan:/build: steps.py):
+# trees and boulders as a function over an open scene, without scene.obj.
+component: plants
+version: 1
+hooks:                                 # core extension points (core/hooks.py): the core calls them without importing Plants
+  light: components.plants.api:light_changed        # light through foliage — after the scene's light (core/light/bl_far.attach)
+  maps_before: components.plants.api:maps_before    # plants → map proxies (core/outputs/bl_parts.collect)
+  maps_after: components.plants.api:maps_after      # remove the proxies
+owner: component maintainers
+bench: bench/bench.py                  # spruce, oak, boulders on a copy of urban_squad: the step answers and the bounding sizes of the appended parts
+steps:
+  plants:
+    section: layout
+    kind: adds
+    reads: [site]
+    may_read: [buildings, cameras]   # building occupancy (the core.layers layer) — a ring around the footprint and not on occupied ground; cameras — tiers
+    writes: [layout]                 # trees tree_<n> (bark and crown) and boulders boulder_<n> (A.N.T.) on the scene terrain, kind tree|rock
+    plan: steps.py:plan_plants           # project Python: keys + the site (relief.npz, after the building step — the edited one) + the buildings' footprint (occupancy layer, anchors)
+    build: steps.py:build_plants        # Blender: bl_tree.build_parts, bl_boulder.boulder, seating by a ray onto 'terrain'; the objects go into the section collection
+    keys: {trees: 8, boulders: 10, seed: 1, species: null, boulder_kind: null, size: null, from: null, to: null, slope: null, gap: null, boulder_gap: null}
+    values: {trees: int, boulders: int, seed: int, species: str, boulder_kind: str, size: str, from: float, to: float, slope: float, gap: float, boulder_gap: float}
+    description: {species: "comma-separated: oak,pine,… (by default — by biome)", size: "boulder size multiplier '1.2,3.0'", from: "inner radius of the ring around the building, m",
+               to: "outer radius of the ring, m", slope: "maximum planting slope, degrees", gap: "spacing between trees, m", boulder_gap: "spacing between boulders, m",
+               boulder_kind: "boulder kind"}
+    hint: "plants come after the building step (a ring around its footprint); they need not precede the camera or masonry"
+    code: [components/plants/ext/tree_skeletons/*.py]
+    cost: light
+    on_fail: stop
+  trees:
+    section: layout
+    kind: adds
+    reads: [site]
+    writes: [layout]                 # part tree_<n> of the kind "tree": tree skeleton, skinning, crown; without z — onto the scene ground
+    command: [blender, -b, --factory-startup, -P, "{root}/core/blender/run.py", --, "{root}/components/plants/bl_tree.py", --, "{scene}", "{species}", "{at}", "{seed}"]
+    keys: {species: oak, seed: 1}
+    scene_files: [scene.obj, world.json]
+    code: [components/plants/ext/tree_skeletons/*.py]
+    cost: light
+    on_fail: stop
+  boulders:
+    section: layout
+    kind: adds
+    reads: [site]
+    writes: [layout]                 # parts boulder_<n>: exact size w × d × h, seated by the bottom on the ground
+    command: [blender, -b, --factory-startup, -P, "{root}/core/blender/run.py", --, "{root}/components/plants/bl_boulder.py", --, "{scene}", "{kind}", "{at}"]
+    keys: {kind: rock}
+    flags: {n: n=, spread: spread=, size: size=, seed: seed=}
+    scene_files: [scene.obj, world.json]
+    cost: light
+    on_fail: stop
+  forest:                                   # vegetation: the forest as a computation; trees — the m_tree engine from the species.yaml knowledge
+    section: layout
+    kind: adds
+    reads: [site]
+    may_read: [buildings, cameras]   # building occupancy (the core.layers layer) — no trees there; the scene's cameras — unique trees near the cameras
+    writes: [layout]
+    scene_files: [forest.json, canopy.json]   # its own plan (the meadow) and the canopy layer (Grass) — a snapshot for the cache  # forest.json in the scene (the stand: species, age, Kraft class, tilt, crown toward the light); objects — the forest collection
+    plan: steps.py:plan_forest           # project Python: forest.plan (species suitability, seeding, growth, shade, self-thinning, forest edge) + plants.resolve
+    build: steps.py:build_forest        # Blender: near the cameras — unique trees (roots seated on the terrain), farther out — instances of variants; tiers — by the tree's height in the frame of the layer's cameras
+    keys: {density: 1.0, seed: 1, area: null, kinds: null, unique: 14, unique_to: 22, season: null, look: full}
+    values: {density: float, seed: int, area: str, kinds: str, unique: int, unique_to: float, season: [winter, autumn], look: [full, stand_in]}
+    description: {density: "factor: 0.3 — open woodland, 1 — closed forest, 1.6 — dense thicket", area: "x0,y0,x1,y1, m (by default — the site's near grid)",
+               kinds: "comma-separated — your own set of species instead of the biome's", unique: "how many trees near the camera to build as unique ones (tilt, roots)",
+               unique_to: "up to what distance from the camera a tree is unique, m", season: "winter — deciduous trees without leaves; autumn — foliage tint; empty — summer",
+               look: "full — trees by tiers; stand_in — draft stand-ins by the same plan: a crown by the species silhouette and a trunk, one object per species"}
+    hint: "the forest comes after the site and the building step; there are no cameras yet — the tiers are set from the middle of the plot, and forest_clear sets them by the cameras after the camera and take"
+    profiles: {sketch: {look: stand_in}}   # draft — stand-ins; the plan is the same
+    code: [components/plants/steps.py, components/plants/forest.py, components/plants/plants.py, components/plants/bl_forest.py, components/plants/bl_plant.py,
+          components/plants/leaves.py, components/plants/species.yaml, components/plants/ext/mtree/site/m_tree/*.so]
+    cost: medium
+    on_fail: stop
+  forest_clear:                             # forest at the cameras — after the cameras and take: crowns at the camera and in the near zone of the frame are removed, the forest is rebuilt with tiers by the layer's cameras
+    section: layout
+    kind: refines
+    reads: [cameras]                 # the camera layer (core.layers): Camera and take write it after the forest
+    may_read: [layout]
+    writes: [layout]
+    plan: steps.py:plan_forest_clear
+    build: steps.py:build_forest_clear   # Blender: bl_forest.rebuild_forest — tiers by the tree's height in the frame of these cameras (the forest step did not know them yet)
+    code: [components/plants/steps.py, components/plants/bl_forest.py, components/plants/bl_plant.py, components/plants/leaves.py, components/plants/species.yaml,
+          components/plants/ext/mtree/site/m_tree/*.so]
+    keys: {margin: 2.0, front: 12.0, look: full}
+    values: {margin: float, front: float, look: [full, stand_in]}
+    description: {margin: "margin added to the crown radius near the camera, m", front: "near zone of the frame in front of the camera, m: trees whose tops are above the camera are removed",
+               look: "full — rebuild with tiers by the cameras; stand_in — the same decision, with a forest of stand-ins"}
+    scene_files: [canopy.json]       # canopy — without the removed trees
+    hint: "after the camera and take (their cameras are in the camera layer), before the meadow, light and frames"
+    profiles: {sketch: {look: stand_in}}   # draft — stand-ins; the "what to remove" decision is the same (the plan does not depend on look)
+    cost: medium
+    on_fail: stop
+  meadow:                                   # herb layer — grasses, forbs, flowers, ferns as instances near the cameras
+    section: layout
+    kind: adds
+    reads: [site]
+    may_read: [layout, cameras]  # the canopy layer canopy.json — shade; the camera (and take) layer — where the meadow goes: the camera frame, up to "to" m from the eye
+    writes: [layout]
+    plan: steps.py:plan_meadow
+    build: steps.py:build_meadow
+    keys: {density: 40, to: 70, variants: 3, seed: 1, season: null, budget: 40000, cards: low_poly, card_px: 60, herb_px: 20, card_overlap: 6}
+    values: {density: float, to: float, variants: int, seed: int, season: [winter, autumn], budget: int, cards: str, card_px: float, herb_px: float, card_overlap: float}
+    description: {density: "tufts per m² near the camera", to: "grass range from the camera's eye (3D), m (beyond it — the ground colour)", variants: "variants per species",
+               budget: "ceiling of tufts per scene: beyond it the far ones are thinned (nothing closer than 12 m is touched)",
+               cards: "card set — the cheap tier of distant grass (library/plants/cards/<set>); off — tufts up to to, as before",
+               card_px: "a grass tuft smaller than this many frame pixels becomes a card (down to 3 px; beyond that — the canopy in the ground shader)",
+               herb_px: "the same for flowers and forbs (their shape stays readable longer)", card_overlap: "card density: layers per ground pixel",
+               season: "winter — dry grasses, no flowers; autumn — grasses half dry; empty — summer"}
+    hint: "the meadow goes after the camera (points — within the view sector); without cameras — near the site's cameras"
+    profiles: {sketch: off}             # draft — the ground tone without a meadow
+    cost: medium
+    on_fail: stop

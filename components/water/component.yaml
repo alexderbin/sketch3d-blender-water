@@ -1,0 +1,30 @@
+# Passport of the Water component (ARCHITECTURE.md): one model for all waters — the wave engine (waves.py: a
+# spectrum from wind, fetch and depth, FFT bands, foam with memory), the water-column color by substance
+# (optics.py), the site's water bodies (bodies.py), the water in the frame (bl_water.py).
+# Showcases — bench/stand.py; the reference without Blender — bench/bench.py.
+component: water
+version: 1
+owner: "Water component maintainers"
+bench: bench/bench.py
+hooks:
+  light: components.water.api:light_changed     # the frames output opened the scene: the water is rebuilt from the object numbers, the frame is computed on the fly
+steps:
+  water:
+    section: site
+    kind: refines
+    reads: [site, cameras]            # the Site relief and water level (core.surface.ground.Ground); cameras — water for each one
+    may_read: [light]                 # the scene wind (core.light.wind.of_scene: far.yaml wind)
+    writes: [site]                    # the scene water: objects water_<camera> (the engine numbers are in water_params); the Site's water is removed from the render
+    plan: steps.py:plan_water
+    build: steps.py:build_water
+    keys: {wind: null, optics: null}
+    values: {wind: float, optics: "catalog:components/water/optics.py#PRESETS"}
+    description: {wind: "wind at 10 m, m/s (default — the scene wind)",
+                  optics: "the substance in the water (optics.PRESETS: ocean, coastal, lagoon, mountain_lake, glacial_lake, pond_clear, pond_green, forest_pond, muddy_river…); default — by kind and biome (kinds.yaml)"}
+    gives: [water_plan]
+    profiles: {sketch: plan}          # sketch — the Site's water as a placeholder (the step plan — yes, no assembly)
+    code: [components/water/steps.py, components/water/bodies.py, components/water/waves.py, components/water/optics.py, components/water/kinds.yaml,
+           components/water/bl_water.py, components/water/bl_live.py, components/water/api.py, components/water/shore.py, components/water/flow.py,
+           components/water/marble.py, components/water/bl_spray.py, components/water/fall.py, components/water/falls.yaml, components/water/bl_fall.py]
+    cost: medium
+    on_fail: stop

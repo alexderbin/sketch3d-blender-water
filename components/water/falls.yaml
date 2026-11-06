@@ -1,0 +1,15 @@
+# Waterfall kinds — the numbers of the jet model components/water/fall.py.
+# height — the drop to the pool, m; width — the lip, m (segments — the lip fractions where water flows); q —
+# discharge per meter of lip, m²/s; face — the rock profile under the lip: undercut (a niche of depth
+# recess·height — the jet flies without contact), slope (a slope at the angle angle, deg — the jet slides),
+# steps (ledges: [height, shelf] from top to bottom); spread — the jet's spreading toward the bottom (a
+# fraction of the width); rough — the rock roughness, m; pool — the plunge pool: radius, depth, m.
+plunge:      {name: sheer,         height: 24, width: 6,   q: 0.6,  face: undercut, recess: 0.14, spread: 0.3, rough: 0.9, pool: [14, 3.0]}
+horsetail:   {name: horsetail,    height: 20, width: 3.5, q: 0.45, face: slope, angle: 76, spread: 0.35, rough: 0.35, pool: [10, 2.0]}
+fan:         {name: fan,             height: 16, width: 2.0, q: 0.35, face: slope, angle: 64, spread: 2.2, rough: 0.3, pool: [12, 1.5]}
+curtain:     {name: curtain,           height: 12, width: 34,  q: 1.2,  face: undercut, recess: 0.18, spread: 0.02, rough: 0.6, pool: [30, 4.0]}
+ribbon:      {name: ribbon,            height: 40, width: 1.2, q: 0.12, face: undercut, recess: 0.06, spread: 0.6, rough: 0.6, pool: [9, 1.5]}
+segmented:   {name: separate,       height: 15, width: 16,  q: 0.5,  face: undercut, recess: 0.1, spread: 0.12, rough: 0.5, pool: [20, 2.5],
+              segments: [[0.0, 0.16], [0.27, 0.52], [0.63, 0.71], [0.82, 1.0]]}
+punchbowl:   {name: bowl,             height: 9,  width: 1.6, q: 1.6,  face: undercut, recess: 0.1, spread: 0.25, rough: 0.4, pool: [16, 3.5]}
+tiered:      {name: stepped,      height: 21, width: 5,   q: 0.5,  face: steps, steps: [[8, 3.0], [7, 2.5], [6, 0]], spread: 0.1, rough: 0.4, pool: [14, 2.5]}

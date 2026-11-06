@@ -1,0 +1,13 @@
+# Check of Water in the pipeline: a Site bay → camera → water → light → frames.
+# .venv/bin/python -m core.manager.pipeline components/water/bench/water_bay.yaml [--dry] [--until water]
+pipeline: water_bay
+scene: bench/scenes/water_bay
+profile: preview
+build: stepwise
+steps:
+  - relief: {preset: harbour_bay, seed: 2}
+  - camera: {view: bay, anchor: bay.mouth, azimuth: 200, elevation: 6, distance: 260, lens: 30, res: 1280x720}
+  - water: {}
+  - light: {}
+outputs:
+  - frames: {samples: 16, maps: false}

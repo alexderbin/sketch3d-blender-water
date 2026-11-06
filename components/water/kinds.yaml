@@ -1,0 +1,20 @@
+# Water kinds: the kind of water body → the substance in the water (a preset of components/water/optics.py) by
+# biome, gust patches (bl_water.Water gust), crest sharpness. The kind comes from bodies.py by the Site
+# relief; the step knob optics overrides it.
+kinds:
+  sea:
+    optics: {default: coastal, tropical: lagoon, jungle: lagoon, alpine: north_sea, temperate: coastal, desert: ocean_blue}
+    chop: 1.0
+    gust: null                        # at sea the ripple patches drown in the swell
+  lake:
+    optics: {default: mountain_lake, alpine: mountain_lake, temperate: pond_clear, jungle: pond_green, glacier: glacial_lake}
+    chop: 0.9
+    gust: {scale: 35, floor: 0.03, slick: 0.6, drift: 0.8, edge: [0.56, 0.66]}
+  pond:
+    optics: {default: pond_clear, temperate: pond_clear, jungle: pond_green, alpine: mountain_lake, wasteland: forest_pond}
+    chop: 0.8
+    gust: {scale: 2.5, floor: 0.15, slick: 0.3, drift: 0.6, edge: [0.45, 0.6]}
+  river:
+    optics: {default: muddy_river, alpine: glacial_lake, temperate: pond_clear}
+    chop: 0.8
+    gust: null                        # on a river the ripples come from the current

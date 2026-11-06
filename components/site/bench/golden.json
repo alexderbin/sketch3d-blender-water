@@ -1,0 +1,242 @@
+{
+ "alpine_pass": {
+  "relief": "249d29d9740f8618",
+  "far": "92aa0d40b8f35f16",
+  "water": "6a018ea7fcaf41d0",
+  "summary": {
+   "z_min": -0.7,
+   "z_max": 73.1,
+   "steep_35": 0.147,
+   "steep_15": 0.527,
+   "water_share": 0.0,
+   "road_share": 0.009,
+   "far_max": 221.6,
+   "nodes": 990002
+  },
+  "checks": [
+   4,
+   4
+  ],
+  "s": 12.0
+ },
+ "arena_bowl": {
+  "relief": "6fd9170d7467135e",
+  "far": "a4f349ccdedae866",
+  "water": "30cb9d3ff7d2030a",
+  "summary": {
+   "z_min": -0.9,
+   "z_max": 17.2,
+   "steep_35": 0.074,
+   "steep_15": 0.105,
+   "water_share": 0.0,
+   "road_share": 0.0,
+   "far_max": 168.6,
+   "nodes": 821762
+  },
+  "checks": [
+   3,
+   3
+  ],
+  "s": 9.3
+ },
+ "badlands": {
+  "relief": "992dc61e7a729646",
+  "far": "0503c463052f43a9",
+  "water": "ea36f7a98cf5330c",
+  "summary": {
+   "z_min": -1.1,
+   "z_max": 31.9,
+   "steep_35": 0.053,
+   "steep_15": 0.263,
+   "water_share": 0.0,
+   "road_share": 0.012,
+   "far_max": 90.8,
+   "nodes": 930722
+  },
+  "checks": [
+   4,
+   4
+  ],
+  "s": 14.7
+ },
+ "coastal_cliffs": {
+  "relief": "3c49e6d6ad1c0018",
+  "far": "03abc17f1c979a97",
+  "water": "7dade9abe9008989",
+  "summary": {
+   "z_min": -8.5,
+   "z_max": 42.9,
+   "steep_35": 0.06,
+   "steep_15": 0.206,
+   "water_share": 0.26,
+   "road_share": 0.0,
+   "far_max": 104.7,
+   "nodes": 990002
+  },
+  "checks": [
+   2,
+   2
+  ],
+  "s": 15.0
+ },
+ "crater_battlefield": {
+  "relief": "f21eb871d007d5c1",
+  "far": "d0b7050adb117124",
+  "water": "988e69b6c3d13b1d",
+  "summary": {
+   "z_min": -10.6,
+   "z_max": 4.7,
+   "steep_35": 0.031,
+   "steep_15": 0.058,
+   "water_share": 0.0,
+   "road_share": 0.0,
+   "far_max": 55.0,
+   "nodes": 874642
+  },
+  "checks": [
+   2,
+   2
+  ],
+  "s": 10.4
+ },
+ "desert_canyon": {
+  "relief": "203a127b38140c0e",
+  "far": "c60dd2b9cb13b739",
+  "water": "6a018ea7fcaf41d0",
+  "summary": {
+   "z_min": -2.1,
+   "z_max": 39.3,
+   "steep_35": 0.179,
+   "steep_15": 0.429,
+   "water_share": 0.0,
+   "road_share": 0.0,
+   "far_max": 113.2,
+   "nodes": 990002
+  },
+  "checks": [
+   2,
+   2
+  ],
+  "s": 11.6
+ },
+ "fortress_hill": {
+  "relief": "b5f7f1a50be2fd70",
+  "far": "2dc45ec73e831284",
+  "water": "ea36f7a98cf5330c",
+  "summary": {
+   "z_min": -0.9,
+   "z_max": 21.7,
+   "steep_35": 0.013,
+   "steep_15": 0.086,
+   "water_share": 0.0,
+   "road_share": 0.01,
+   "far_max": 132.3,
+   "nodes": 930722
+  },
+  "checks": [
+   8,
+   8
+  ],
+  "s": 10.5
+ },
+ "glacier_field": {
+  "relief": "715a6bf9f83c076d",
+  "far": "d4935a0639d60755",
+  "water": "ea36f7a98cf5330c",
+  "summary": {
+   "z_min": -10.9,
+   "z_max": 27.7,
+   "steep_35": 0.028,
+   "steep_15": 0.056,
+   "water_share": 0.0,
+   "road_share": 0.0,
+   "far_max": 239.5,
+   "nodes": 930722
+  },
+  "checks": [
+   3,
+   3
+  ],
+  "s": 11.5
+ },
+ "jungle_valley": {
+  "relief": "cbf6d20cd5f883fc",
+  "far": "a2760d61fe7cd196",
+  "water": "3dcd58c52f61486c",
+  "summary": {
+   "z_min": -2.0,
+   "z_max": 55.0,
+   "steep_35": 0.316,
+   "steep_15": 0.747,
+   "water_share": 0.021,
+   "road_share": 0.011,
+   "far_max": 123.1,
+   "nodes": 990002
+  },
+  "checks": [
+   6,
+   6
+  ],
+  "s": 13.9
+ },
+ "mountain_lake": {
+  "relief": "4bceb6b967c11309",
+  "far": "ced963bfd17068d3",
+  "water": "8397baf1615d8224",
+  "summary": {
+   "z_min": -7.1,
+   "z_max": 13.5,
+   "steep_35": 0.002,
+   "steep_15": 0.164,
+   "water_share": 0.065,
+   "road_share": 0.0,
+   "far_max": 221.6,
+   "nodes": 990002
+  },
+  "checks": [
+   4,
+   4
+  ],
+  "s": 9.9
+ },
+ "river_crossing": {
+  "relief": "00b43fe2548a4619",
+  "far": "d8744f3735c4d0e9",
+  "water": "148fc815c7ad6bd5",
+  "summary": {
+   "z_min": -2.6,
+   "z_max": 14.2,
+   "steep_35": 0.005,
+   "steep_15": 0.098,
+   "water_share": 0.041,
+   "road_share": 0.009,
+   "far_max": 123.7,
+   "nodes": 930722
+  },
+  "checks": [
+   5,
+   5
+  ],
+  "s": 10.7
+ },
+ "volcanic_plateau": {
+  "relief": "fe78127fa3efbf05",
+  "far": "b937b03551e0932e",
+  "water": "073f9aadeb9b0c8a",
+  "summary": {
+   "z_min": -1.9,
+   "z_max": 34.2,
+   "steep_35": 0.041,
+   "steep_15": 0.184,
+   "water_share": 0.043,
+   "road_share": 0.0,
+   "far_max": 203.9,
+   "nodes": 990002
+  },
+  "checks": [
+   4,
+   4
+  ],
+  "s": 11.6
+ }
+}

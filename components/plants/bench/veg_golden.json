@@ -1,0 +1,479 @@
+{
+  "specs": {
+    "oak_adult_healthy_3": "e8f7a2aa505d",
+    "spruce_adult_healthy_4": "5590bcfcf728",
+    "birch_young_healthy_5": "77f8a1b52d48",
+    "palm_adult_healthy_6": "392601a008c0",
+    "hazel_adult_healthy_7": "e0cbeb16695f",
+    "oak_old_dead_8": "7919767be910",
+    "kapok_adult_healthy_9": "1141b13a64a8",
+    "meadow_grass_adult_healthy_10": "111cb4971168",
+    "daisy_adult_healthy_11": "ba8cbb47f96f",
+    "fern_adult_healthy_12": "96f68a885d9d"
+  },
+  "build": {
+    "oak_adult_healthy_3": {
+      "verts": 168458,
+      "leaves": [
+        126750,
+        "806d4e6ee1",
+        -9.67,
+        -12.74,
+        7.32,
+        8.09,
+        7.56,
+        19.83
+      ],
+      "bark": [
+        38924,
+        "0035bd95e6",
+        -8.53,
+        -11.31,
+        -0.08,
+        6.95,
+        6.33,
+        19.03
+      ],
+      "roots": [
+        2784,
+        "3a91152c65",
+        -2.4,
+        -2.52,
+        -7.97,
+        2.78,
+        2.59,
+        0.15
+      ],
+      "light": {
+        "sky": 1.0,
+        "thickness0": true
+      }
+    },
+    "spruce_adult_healthy_4": {
+      "verts": 236862,
+      "leaves": [
+        208398,
+        "8557b0b14a",
+        -12.29,
+        -12.76,
+        -0.02,
+        11.74,
+        12.64,
+        39.61
+      ],
+      "bark": [
+        25340,
+        "279a6486f9",
+        -11.37,
+        -11.94,
+        -0.01,
+        10.84,
+        11.83,
+        39.15
+      ],
+      "roots": [
+        3124,
+        "4d865f33c9",
+        -2.68,
+        -2.59,
+        -5.33,
+        2.65,
+        2.63,
+        0.15
+      ],
+      "light": {
+        "sky": 1.0,
+        "thickness0": true
+      }
+    },
+    "birch_young_healthy_5": {
+      "verts": 30650,
+      "leaves": [
+        16836,
+        "eaec860492",
+        -4.0,
+        -3.14,
+        1.06,
+        1.86,
+        3.18,
+        8.39
+      ],
+      "bark": [
+        13482,
+        "1fcff5df52",
+        -3.5,
+        -2.62,
+        -0.0,
+        1.4,
+        2.71,
+        8.07
+      ],
+      "roots": [
+        332,
+        "ed553d2cd2",
+        -0.36,
+        -0.36,
+        -0.35,
+        0.35,
+        0.35,
+        0.2
+      ],
+      "light": {
+        "sky": 1.0,
+        "thickness0": true
+      }
+    },
+    "palm_adult_healthy_6": {
+      "verts": 10340,
+      "leaves": 0,
+      "bark": [
+        564,
+        "b98f5cc06d",
+        -0.33,
+        -0.3,
+        -0.0,
+        0.55,
+        0.44,
+        17.38
+      ],
+      "fronds": [
+        8568,
+        "7863082bed",
+        -4.31,
+        -4.5,
+        15.75,
+        5.03,
+        4.53,
+        20.31
+      ],
+      "rachis": [
+        378,
+        "8c678753e5",
+        -4.22,
+        -4.38,
+        15.92,
+        4.83,
+        4.39,
+        20.32
+      ],
+      "roots": [
+        830,
+        "cf4d1442c5",
+        -0.51,
+        -0.51,
+        -1.66,
+        0.51,
+        0.51,
+        0.15
+      ]
+    },
+    "hazel_adult_healthy_7": {
+      "verts": 29278,
+      "leaves": [
+        22536,
+        "3a1081acf0",
+        -3.16,
+        -3.23,
+        0.89,
+        2.85,
+        2.49,
+        5.17
+      ],
+      "bark": [
+        6742,
+        "43e6f3d966",
+        -2.6,
+        -2.56,
+        -0.04,
+        2.37,
+        1.85,
+        4.88
+      ],
+      "light": {
+        "sky": 1.0,
+        "thickness0": true
+      }
+    },
+    "oak_old_dead_8": {
+      "verts": 18436,
+      "leaves": 0,
+      "bark": [
+        15226,
+        "ae4a4d6496",
+        -12.54,
+        -10.06,
+        -0.04,
+        6.15,
+        10.46,
+        23.02
+      ],
+      "roots": [
+        3210,
+        "4a8ec4931c",
+        -3.35,
+        -3.39,
+        -16.5,
+        3.62,
+        3.83,
+        0.15
+      ]
+    },
+    "kapok_adult_healthy_9": {
+      "verts": 364398,
+      "leaves": [
+        270000,
+        "f99c696b33",
+        -22.8,
+        -15.02,
+        27.96,
+        12.93,
+        19.84,
+        53.01
+      ],
+      "bark": [
+        85974,
+        "48a14f2aab",
+        -21.96,
+        -14.11,
+        -0.03,
+        11.65,
+        18.62,
+        52.4
+      ],
+      "roots": [
+        8424,
+        "d7f238e399",
+        -8.16,
+        -7.87,
+        -9.9,
+        7.61,
+        7.71,
+        1.04
+      ],
+      "light": {
+        "sky": 1.0,
+        "thickness0": true
+      }
+    },
+    "meadow_grass_adult_healthy_10": {
+      "verts": 606,
+      "leaves": 0,
+      "blades": [
+        576,
+        "67fe5ec494",
+        -0.29,
+        -0.27,
+        -0.0,
+        0.43,
+        0.46,
+        0.66
+      ],
+      "heads": [
+        30,
+        "bdb0f6b7c2",
+        -0.3,
+        0.21,
+        0.3,
+        0.21,
+        0.46,
+        0.69
+      ]
+    },
+    "daisy_adult_healthy_11": {
+      "verts": 100,
+      "leaves": [
+        60,
+        "7753fb3d4c",
+        -0.06,
+        -0.05,
+        0.0,
+        0.03,
+        0.05,
+        0.21
+      ],
+      "stem0": [
+        14,
+        "710a2d3a80",
+        -0.07,
+        -0.01,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.25
+      ],
+      "stem1": [
+        14,
+        "270b1a1a5d",
+        -0.07,
+        -0.01,
+        -0.0,
+        -0.0,
+        -0.0,
+        0.25
+      ],
+      "flowers": [
+        12,
+        "845e1a7cc4",
+        -0.11,
+        -0.04,
+        0.22,
+        -0.03,
+        0.03,
+        0.27
+      ],
+      "light": {
+        "sky": 1.0,
+        "thickness0": true
+      }
+    },
+    "fern_adult_healthy_12": {
+      "verts": 1316,
+      "leaves": 0,
+      "stem0": [
+        28,
+        "1d16dd9b49",
+        -0.05,
+        -0.1,
+        -0.0,
+        0.12,
+        0.0,
+        0.77
+      ],
+      "stem1": [
+        28,
+        "2310a5d98e",
+        -0.05,
+        -0.1,
+        -0.0,
+        0.12,
+        0.0,
+        0.77
+      ],
+      "fronds": [
+        1152,
+        "24f6596ec9",
+        -1.01,
+        -0.79,
+        0.05,
+        0.65,
+        0.74,
+        0.68
+      ],
+      "rachis": [
+        108,
+        "ef57d7c8d8",
+        -1.01,
+        -0.72,
+        0.0,
+        0.64,
+        0.67,
+        0.7
+      ]
+    },
+    "twins": {
+      "twins_n": 1,
+      "eevee": true,
+      "workbench_without": true,
+      "save_without": true,
+      "shadow_transmits": 0.059
+    }
+  },
+  "forest": {
+    "trees_n": 240,
+    "shrubs_n": 88,
+    "by_species": {
+      "pine": 33,
+      "spruce": 66,
+      "fir": 13,
+      "beech": 98,
+      "oak": 27,
+      "birch": 2,
+      "willow": 1,
+      "juniper": 29,
+      "hazel": 59
+    },
+    "by_class": {
+      "codominant": 43,
+      "intermediate": 44,
+      "dominant": 35,
+      "suppressed": 118,
+      "understory": 88
+    },
+    "by_layer": {
+      "overstory": 78,
+      "second_layer": 55,
+      "saplings": 107,
+      "understory": 88
+    },
+    "stems_per_ha": 167,
+    "closure": 0.57
+  },
+  "meadow": {
+    "temperate": [
+      "buttercup",
+      "clover",
+      "cornflower",
+      "daisy",
+      "dry_grass",
+      "fern",
+      "lawn_grass",
+      "lupine",
+      "meadow_grass",
+      "nettle",
+      "plantain",
+      "poppy",
+      "rush",
+      "sedge",
+      "umbel"
+    ],
+    "desert": [
+      "dry_grass",
+      "rush",
+      "sedge"
+    ],
+    "jungle": [
+      "fern",
+      "lawn_grass",
+      "plantain",
+      "sedge"
+    ],
+    "alpine": [
+      "buttercup",
+      "clover",
+      "daisy",
+      "dry_grass",
+      "lawn_grass",
+      "lupine",
+      "meadow_grass",
+      "plantain",
+      "rush",
+      "sedge"
+    ]
+  },
+  "optics": {
+    "broad": [
+      0.0693,
+      0.0483
+    ],
+    "broad_thin": [
+      0.0796,
+      0.0858
+    ],
+    "needle": [
+      0.0816,
+      0.0126
+    ],
+    "grass": [
+      0.0759,
+      0.0568
+    ],
+    "autumn_yellow": [
+      0.1888,
+      0.184
+    ],
+    "dry_grass": [
+      0.1637,
+      0.1143
+    ]
+  }
+}

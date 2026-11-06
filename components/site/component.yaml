@@ -1,0 +1,39 @@
+# Passport of the "Site" component (ARCHITECTURE.md). The code is in this folder. Reading the site by others (height, slope, water, road — core/surface/ground.py) belongs to the core: the model's "site" section.
+component: site
+version: 2
+hooks:                                 # core extension points (core/hooks.py): the core calls them without importing Site
+  frame_near: components.site.bl_terrain_clutter:frame_near   # small items near the cameras in a scene frame from the .blend (core/outputs/bl_color)
+owner: component maintainers
+bench: bench/bench.py
+steps:
+  relief:
+    section: site
+    kind: adds
+    reads: []                           # the concept is in the model (scene.yaml), the preset and seed are keys
+    writes: [site]                       # location.json, relief.npz (the near and far grids, masks, anchors, paths, checks)
+    gives: [biome]                         # for the light-and-sky node, the materials
+    plan: steps.py:plan_relief           # project Python: preset + seed + knobs → relief.npz, location.json, the ground texture (terrain.py)
+    build: steps.py:build_relief        # Blender: ground, water, landmarks, bridges into the "site" collection (bl_relief.py); step-by-step build
+    scene_files: [location.json, relief.npz, relief_w.npz, surface.json, relief_tex.png, relief_tex.json, relief_nrm.png, relief_far.png, far_heights.npz]   # everything the step puts into the run scene (a snapshot for the cache)
+    keys: {preset: alpine_pass, seed: "1", ground: scans, far: null, size: null, res: null}
+    open_keys: true                      # preset knobs (face, step, …) — from the ranges of the catalogue; size/res — the near grid on top of the preset
+    values: {preset: "catalog:library/terrain/CATALOG.md", seed: int, ground: [scans, vista, baked], far: dict, size: float, res: float}
+    description: {preset: "id of a site preset from the catalogue (library/terrain/CATALOG.md): terrain, biome, story themes", seed: "your own site of the same concept (a number)", ground: "ground: scans — scans up close and the far shader on the belt, vista — the far shader on the whole ground (a cheaper frame, simpler up close), baked — an image", far: "belt mountains on top of the preset: {kind: real, window, k} — a real window; {kind: mosaic, types: {granite, strata, mesa, volcanic, hills: weight}, seed} — a mosaic of kinds (see README: belt mountains); snow — from the mountain height, unless the preset sets its own"}
+    hint: "take a preset from the catalogue by the story of the intent; the seed is a number; preset knobs only from the catalogue ranges"
+    cost: medium
+    on_fail: stop
+  rocks:
+    section: site
+    kind: adds
+    reads: [site]                        # terrain, its analysis, rock tones (relief_w)
+    may_read: [buildings]                # occupancy (occupancy.json): no rocks inside buildings
+    writes: [site]
+    plan: steps.py:plan_rocks            # Python: the places of boulders, walls, outcrops and scree from the terrain data of the near plot and the belt (terrain_rocks)
+    build: steps.py:build_rocks          # Blender: Poly Haven scans as instances (bl_rocks), the collection rocks
+    scene_files: [rocks.json]
+    keys: {density: "1", belt: "0", crags: "1", seed: "11"}
+    values: {density: float, belt: [0, 1], crags: [0, 1], seed: int}
+    description: {density: "rock density (1 — by the site's rules)", belt: "rocks in the mountain belt too (1) or only near the scene (0; a scatter in the belt is clutter, belt rocks come from the relief shape)", crags: "belt rocks as the shape of the wall (bl_crags: strata ledges, couloirs, buttresses near the frame's camera; the frame +~50 %)", seed: "a different arrangement"}
+    hint: "after the terrain and buildings; in mountains and on rocky sites — yes, on a plain and in a town it can be omitted"
+    cost: medium
+    on_fail: continue
